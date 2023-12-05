@@ -75,6 +75,28 @@ class Almanac {
 
         return lowestLocation
     }
+
+    getLowestLocationUsingAllSeeds() {
+        let lowestLocation
+
+        for (var i = 0; i <= this.seedsToPlant.length; i += 2) {
+            for (var seed = this.seedsToPlant[i]; seed <= this.seedsToPlant[i] + this.seedsToPlant[i + 1]; seed++) {
+                const soil = this.maps[this.sections.SEED_TO_SOIL].getDestination(seed)
+                const fertilizer = this.maps[this.sections.SOIL_TO_FERTILIZER].getDestination(soil)
+                const water = this.maps[this.sections.FERTILIZER_TO_WATER].getDestination(fertilizer)
+                const light = this.maps[this.sections.WATER_TO_LIGHT].getDestination(water)
+                const temperature = this.maps[this.sections.LIGHT_TO_TEMPERATURE].getDestination(light)
+                const humidity = this.maps[this.sections.TEMPERATURE_TO_HUMIDITY].getDestination(temperature)
+                const location = this.maps[this.sections.HUMIDITY_TO_LOCATION].getDestination(humidity)
+                
+                if (lowestLocation === undefined || location < lowestLocation) {
+                    lowestLocation = location
+                }
+            }
+        }
+
+        return lowestLocation
+    }
 }
 
 class Map {
@@ -110,5 +132,5 @@ class Map {
     const almanac = new Almanac(lines)
 
     console.log(`Part One: ${almanac.getLowestLocation()}`)
-    // console.log(`Part Two: ${totalCards}`)
+    console.log(`Part Two: ${almanac.getLowestLocationUsingAllSeeds()}`)
 })();
