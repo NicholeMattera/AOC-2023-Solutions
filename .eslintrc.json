@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "no-constant-condition": ["error", { "checkLoops": false }]
+  }
+}
