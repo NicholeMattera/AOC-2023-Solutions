@@ -1,0 +1,23 @@
+{
+  "name": "aoc-2023-solutions",
+  "version": "1.0.0",
+  "description": "My solutions to the Advent of Code 2023 Challenge.",
+  "author": "Nichole Mattera",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NicholeMattera/AOC-2023-Solutions.git"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "commitlint-config-gitmoji": "^2.3.1",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
