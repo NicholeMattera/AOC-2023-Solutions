@@ -80,7 +80,7 @@ class Almanac {
     getLowestLocationUsingRange(start, range) {
         let lowestLocation
 
-        for (var seed = start; seed <= start + range; seed++) {
+        for (let seed = start; seed <= start + range; seed++) {
             const soil = this.maps[this.sections.SEED_TO_SOIL].getDestination(seed)
             const fertilizer = this.maps[this.sections.SOIL_TO_FERTILIZER].getDestination(soil)
             const water = this.maps[this.sections.FERTILIZER_TO_WATER].getDestination(fertilizer)
@@ -136,7 +136,7 @@ class Map {
         let workersCreated = 0
         let workersFinished = 0
         let lowestLocation;
-        for (var i = 0; i < almanac.seedsToPlant.length; i += 2) {
+        for (let i = 0; i < almanac.seedsToPlant.length; i += 2) {
             const worker = new Worker(__filename);
             workersCreated++
 

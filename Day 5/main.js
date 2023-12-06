@@ -79,8 +79,8 @@ class Almanac {
     getLowestLocationUsingAllSeeds() {
         let lowestLocation
 
-        for (var i = 0; i <= this.seedsToPlant.length; i += 2) {
-            for (var seed = this.seedsToPlant[i]; seed <= this.seedsToPlant[i] + this.seedsToPlant[i + 1]; seed++) {
+        for (let i = 0; i <= this.seedsToPlant.length; i += 2) {
+            for (let seed = this.seedsToPlant[i]; seed <= this.seedsToPlant[i] + this.seedsToPlant[i + 1]; seed++) {
                 const soil = this.maps[this.sections.SEED_TO_SOIL].getDestination(seed)
                 const fertilizer = this.maps[this.sections.SOIL_TO_FERTILIZER].getDestination(soil)
                 const water = this.maps[this.sections.FERTILIZER_TO_WATER].getDestination(fertilizer)
