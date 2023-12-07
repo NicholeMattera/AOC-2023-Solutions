@@ -60,7 +60,7 @@ class Hand {
     this.wildcardType = this._getHandType(true)
   }
 
-  _getHandType(wildcardIncluded) {
+  _getHandMap(wildcardIncluded) {
     const handMap = {}
     let cardsCounted = 0
     this.cards.forEach((card) => {
@@ -83,6 +83,12 @@ class Hand {
 
       handMap[largestLabel] += 5 - cardsCounted
     }
+
+    return handMap
+  }
+
+  _getHandType(wildcardIncluded) {
+    const handMap = this._getHandMap(wildcardIncluded)
 
     // Figure out our hand type
     const numberOfUniqueCards = Object.keys(handMap).length
@@ -107,8 +113,9 @@ class Hand {
     }
   }
 
-  static compare(part) {
-    const typeProperty = part === 1 ? 'type' : 'wildcardType'
+  static compare(wildcardIncluded) {
+    const typeProperty = wildcardIncluded ? 'wildcardType' : 'type'
+    const cardStrengthMapIndex = wildcardIncluded ? 1 : 0
 
     // Sort our hands by strength
     return (x, y) => {
@@ -116,8 +123,8 @@ class Hand {
       else if (x[typeProperty] < y[typeProperty]) return -1
       else {
         for (let i = 0; i < Math.min(x.cards.length, y.cards.length); i++) {
-          const xStrength = Hand.CardStrengthMap[part - 1][x.cards[i]]
-          const yStrength = Hand.CardStrengthMap[part - 1][y.cards[i]]
+          const xStrength = Hand.CardStrengthMap[cardStrengthMapIndex][x.cards[i]]
+          const yStrength = Hand.CardStrengthMap[cardStrengthMapIndex][y.cards[i]]
 
           if (xStrength > yStrength) return 1
           else if (xStrength < yStrength) return -1
@@ -135,11 +142,11 @@ class Hand {
   const lines = (await fs.readFile('./input', { encoding: 'ascii', flag: 'r' })).split('\n')
   const hands = lines.filter((line) => line.length !== 0).map((line) => new Hand(line))
 
-  const partOne = [...hands].sort(Hand.compare(1)).reduce((solution, hand, index) => {
+  const partOne = [...hands].sort(Hand.compare(false)).reduce((solution, hand, index) => {
     return solution + hand.bid * (index + 1)
   }, 0)
 
-  const partTwo = [...hands].sort(Hand.compare(2)).reduce((solution, hand, index) => {
+  const partTwo = [...hands].sort(Hand.compare(true)).reduce((solution, hand, index) => {
     return solution + hand.bid * (index + 1)
   }, 0)
 
